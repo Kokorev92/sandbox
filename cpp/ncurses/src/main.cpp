@@ -1,12 +1,10 @@
 #include <ncurses.h>
 #include <stdio.h>
 
-
-static constexpr int width = 50;
+static constexpr int width  = 50;
 static constexpr int height = 50;
 
-int main(int argc, char** argv){
-    
+int main(int argc, char** argv) {
     initscr();
     curs_set(0);
     noecho();
@@ -15,22 +13,33 @@ int main(int argc, char** argv){
     int x = 5;
     int y = 5;
 
-    while(true) {
+    int l = LINES;
+    int c = COLS;
+
+    while (true) {
         mvprintw(y, x, "X");
 
         int ch = getch();
-        switch(ch) {
+        switch (ch) {
             case KEY_UP:
-                y -= 5;
+                if ((y - 1) >= 0) {
+                    y--;
+                }
                 break;
             case KEY_DOWN:
-                y += 5;
+                if ((y + 1) < l) {
+                    y++;
+                }
                 break;
             case KEY_LEFT:
-                x -= 5;
+                if ((x - 1) >= 0) {
+                    x--;
+                }
                 break;
             case KEY_RIGHT:
-                x += 5;
+                if ((x + 1) < c) {
+                    x++;
+                }
                 break;
         }
         clear();
