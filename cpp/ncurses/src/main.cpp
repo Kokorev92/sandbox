@@ -13,9 +13,6 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int x = 5;
     int y = 5;
 
-    int l = LINES;
-    int c = COLS;
-
     while (true) {
         mvprintw(y, x, "X");
 
@@ -27,7 +24,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 }
                 break;
             case KEY_DOWN:
-                if ((y + 1) < l) {
+                if ((y + 1) < LINES) {
                     y++;
                 }
                 break;
@@ -37,7 +34,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 }
                 break;
             case KEY_RIGHT:
-                if ((x + 1) < c) {
+                if ((x + 1) < COLS) {
                     x++;
                 }
                 break;
