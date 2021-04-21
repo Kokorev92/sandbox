@@ -4,7 +4,7 @@
 static constexpr int width  = 50;
 static constexpr int height = 50;
 
-int main(int argc, char** argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     initscr();
     curs_set(0);
     noecho();
