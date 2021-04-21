@@ -1,8 +1,8 @@
 #include <ncurses.h>
 #include <stdio.h>
 
-static constexpr int width  = 50;
-static constexpr int height = 50;
+static constexpr int box_x = 15;
+static constexpr int box_y = 20;
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     initscr();
@@ -12,8 +12,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
     int x = 5;
     int y = 5;
-
     while (true) {
+        mvaddch(box_y, box_x, 'O');
         mvprintw(y, x, "X");
 
         int ch = getch();
