@@ -21,8 +21,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int i = 0;
     while (i < points_count) {
         std::pair<int, int> p;
-        p.first  = std::rand() % (LINES - 1);
-        p.second = std::rand() % (COLS - 1);
+        p.first  = 2 + std::rand() % (LINES - 2);
+        p.second = 1 + std::rand() % (COLS - 1);
 
         points.insert(p);
         i = points.size();
@@ -49,7 +49,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
             }
         }
 
-        std::string score_str = std::to_string(score);
+        std::string score_str = std::string("Score: ") + std::to_string(score);
 
         mvaddstr(0, 0, score_str.c_str());
         mvprintw(y, x, "X");
