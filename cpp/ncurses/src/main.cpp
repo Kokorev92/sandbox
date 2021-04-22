@@ -17,8 +17,14 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int y = 5;
     while (true) {
         if (!points.empty()) {
-            for (size_t i = 0; i < points.size(); i++) {
-                mvaddch(points[i].first, points[i].second, 'O');
+            std::vector<std::pair<int, int>>::iterator iter = points.begin();
+            while (iter != points.end()) {
+                mvaddch(iter->first, iter->second, 'O');
+                if ((iter->first == y) && (iter->second == x)) {
+                    points.erase(iter);
+                    continue;
+                }
+                ++iter;
             }
         }
 
@@ -47,14 +53,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 }
                 break;
         }
-        std::vector<std::pair<int, int>>::iterator iter = points.begin();
-        while (iter != points.end()) {
-            if ((iter->first == y) && (iter->second == x)) {
-                points.erase(iter);
-                continue;
-            }
-            ++iter;
-        }
+
         clear();
         refresh();
     }
