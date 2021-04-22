@@ -9,6 +9,14 @@ LIB		:= lib
 LIBRARIES	:= -lncurses
 EXECUTABLE	:= main
 
+ifndef TYPE
+TYPE := 
+endif
+
+ifeq ($(TYPE), static)
+CXX_FLAGS += -static
+LIBRARIES += -ltinfo
+endif
 
 all: $(BIN)/$(EXECUTABLE)
 
