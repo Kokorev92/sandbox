@@ -77,6 +77,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                     x++;
                 }
                 break;
+            case 'q':
+                exit(0);
         }
         clear();
         refresh();
