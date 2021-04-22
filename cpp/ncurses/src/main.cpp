@@ -1,27 +1,41 @@
 #include <ncurses.h>
 #include <stdio.h>
+#include <cstdlib>
+#include <ctime>
+#include <set>
 #include <utility>
 #include <vector>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
-    std::vector<std::pair<int, int>> points;
-    points.push_back(std::pair(14, 56));
-    points.push_back(std::pair(22, 12));
+static constexpr int points_count = 10;
 
+int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     initscr();
     curs_set(0);
     noecho();
     keypad(stdscr, TRUE);
+    std::srand(std::time(nullptr));
+
+    std::set<std::pair<int, int>> points;
+
+    int i = 0;
+    while (i < points_count) {
+        std::pair<int, int> p;
+        p.first  = std::rand() % LINES;
+        p.second = std::rand() % COLS;
+
+        points.insert(p);
+        i = points.size();
+    }
 
     int x = 5;
     int y = 5;
     while (true) {
         if (!points.empty()) {
-            std::vector<std::pair<int, int>>::iterator iter = points.begin();
+            std::set<std::pair<int, int>>::iterator iter = points.begin();
             while (iter != points.end()) {
                 mvaddch(iter->first, iter->second, 'O');
                 if ((iter->first == y) && (iter->second == x)) {
-                    points.erase(iter);
+                    iter = points.erase(iter);
                     continue;
                 }
                 ++iter;
