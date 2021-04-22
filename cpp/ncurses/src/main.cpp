@@ -7,7 +7,7 @@
 #include <utility>
 #include <vector>
 
-static constexpr int points_count = 10;
+static constexpr int points_count = 50;
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     initscr();
@@ -83,6 +83,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
         clear();
         refresh();
     }
+    delwin(win);
     endwin();
     return 0;
 }
