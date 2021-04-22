@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <set>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -20,8 +21,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int i = 0;
     while (i < points_count) {
         std::pair<int, int> p;
-        p.first  = std::rand() % LINES;
-        p.second = std::rand() % COLS;
+        p.first  = std::rand() % (LINES - 1);
+        p.second = std::rand() % (COLS - 1);
 
         points.insert(p);
         i = points.size();
@@ -29,6 +30,11 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
     int x = 5;
     int y = 5;
+
+    int score = 0;
+
+    WINDOW* win = newwin(LINES - 1, COLS, 1, 0);
+
     while (true) {
         if (!points.empty()) {
             std::set<std::pair<int, int>>::iterator iter = points.begin();
@@ -36,38 +42,42 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 mvaddch(iter->first, iter->second, 'O');
                 if ((iter->first == y) && (iter->second == x)) {
                     iter = points.erase(iter);
+                    score++;
                     continue;
                 }
                 ++iter;
             }
         }
 
-        mvprintw(y, x, "X");
+        std::string score_str = std::to_string(score);
 
+        mvaddstr(0, 0, score_str.c_str());
+        mvprintw(y, x, "X");
+        box(win, 0, 0);
+        wrefresh(win);
         int ch = getch();
         switch (ch) {
             case KEY_UP:
-                if ((y - 1) >= 0) {
+                if ((y - 1) >= 2) {
                     y--;
                 }
                 break;
             case KEY_DOWN:
-                if ((y + 1) < LINES) {
+                if ((y + 1) < LINES - 1) {
                     y++;
                 }
                 break;
             case KEY_LEFT:
-                if ((x - 1) >= 0) {
+                if ((x - 1) >= 1) {
                     x--;
                 }
                 break;
             case KEY_RIGHT:
-                if ((x + 1) < COLS) {
+                if ((x + 1) < COLS - 1) {
                     x++;
                 }
                 break;
         }
-
         clear();
         refresh();
     }
