@@ -1,10 +1,13 @@
 #include <ncurses.h>
 #include <stdio.h>
-
-static constexpr int box_x = 15;
-static constexpr int box_y = 20;
+#include <utility>
+#include <vector>
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+    std::vector<std::pair<int, int>> points;
+    points.push_back(std::pair(14, 56));
+    points.push_back(std::pair(22, 12));
+
     initscr();
     curs_set(0);
     noecho();
@@ -13,7 +16,12 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int x = 5;
     int y = 5;
     while (true) {
-        mvaddch(box_y, box_x, 'O');
+        if (!points.empty()) {
+            for (size_t i = 0; i < points.size(); i++) {
+                mvaddch(points[i].first, points[i].second, 'O');
+            }
+        }
+
         mvprintw(y, x, "X");
 
         int ch = getch();
@@ -38,6 +46,14 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                     x++;
                 }
                 break;
+        }
+        std::vector<std::pair<int, int>>::iterator iter = points.begin();
+        while (iter != points.end()) {
+            if ((iter->first == y) && (iter->second == x)) {
+                points.erase(iter);
+                continue;
+            }
+            ++iter;
         }
         clear();
         refresh();
