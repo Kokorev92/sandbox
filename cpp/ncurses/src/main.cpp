@@ -21,8 +21,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int i = 0;
     while (i < points_count) {
         std::pair<int, int> p;
-        p.first  = 2 + std::rand() % (LINES - 2);
-        p.second = 1 + std::rand() % (COLS - 1);
+        p.first  = std::rand() % (LINES - 3) + 2;
+        p.second = std::rand() % (COLS - 2) + 1;
 
         points.insert(p);
         i = points.size();
@@ -35,7 +35,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 
     WINDOW* win = newwin(LINES - 1, COLS, 1, 0);
 
-    while (true) {
+    bool game_is_running = true;
+    while (game_is_running) {
         if (!points.empty()) {
             std::set<std::pair<int, int>>::iterator iter = points.begin();
             while (iter != points.end()) {
@@ -49,7 +50,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
             }
         }
 
-        std::string score_str = std::string("Score: ") + std::to_string(score);
+        std::string score_str = std::string("Score: ") + std::to_string(score) +
+                                std::string(" Y: ") + std::to_string(y) +
+                                std::string(" X: ") + std::to_string(x);
 
         mvaddstr(0, 0, score_str.c_str());
         mvprintw(y, x, "X");
@@ -78,7 +81,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 }
                 break;
             case 'q':
-                exit(0);
+                game_is_running = false;
         }
         clear();
         refresh();
