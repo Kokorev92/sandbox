@@ -7,9 +7,15 @@
 #include <utility>
 #include <vector>
 
-static constexpr int points_count = 50;
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
+    int points_count = 0;
+
+    if (argc > 1) {
+        points_count = atoi(argv[1]);
+    } else {
+        points_count = 50;
+    }
     initscr();
     curs_set(0);
     noecho();
