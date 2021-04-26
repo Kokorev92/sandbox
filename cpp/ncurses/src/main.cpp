@@ -57,7 +57,6 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 ++iter;
             }
         }
-
         std::string score_str =
             std::string("Score: ") + std::to_string(score) +
             std::string(" Y: ") + std::to_string(y) + std::string(" X: ") +
@@ -93,6 +92,21 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
                 break;
             case 'q':
                 game_is_running = false;
+        }
+        if (points.empty()) {
+            int x_offset = (COLS - 20) / 2;
+            int y_offset = (LINES - 6) / 2;
+
+            WINDOW*     end_game_win = newwin(6, 20, y_offset, x_offset);
+            std::string win_msg("You WIN!");
+            mvaddstr(LINES / 2, ((COLS - win_msg.length()) / 2),
+                     win_msg.c_str());
+            box(end_game_win, 0, 0);
+            wrefresh(end_game_win);
+            refresh();
+            delwin(end_game_win);
+            getch();
+            game_is_running = false;
         }
         clear();
         refresh();
