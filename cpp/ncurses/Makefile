@@ -1,5 +1,5 @@
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb -O0
 
 BIN		:= bin
 SRC		:= src
@@ -9,6 +9,14 @@ LIB		:= lib
 LIBRARIES	:= -lncurses
 EXECUTABLE	:= main
 
+ifndef TYPE
+TYPE := 
+endif
+
+ifeq ($(TYPE), static)
+CXX_FLAGS += -static
+LIBRARIES += -ltinfo
+endif
 
 all: $(BIN)/$(EXECUTABLE)
 

@@ -2,13 +2,27 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build C++ project",
+            "label": "Build",
             "type": "shell",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "command": "make",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build static",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "make",
+            "args": [
+                "TYPE=static"
+            ],
+            "problemMatcher": []
         },
         {
             "label": "Build & run C++ project",
