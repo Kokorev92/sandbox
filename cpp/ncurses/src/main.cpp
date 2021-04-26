@@ -1,3 +1,4 @@
+#include <math.h>
 #include <ncurses.h>
 #include <stdio.h>
 #include <cstdlib>
@@ -7,15 +8,14 @@
 #include <utility>
 #include <vector>
 
-
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     int points_count = 0;
+    int percent      = 1;
 
     if (argc > 1) {
-        points_count = atoi(argv[1]);
-    } else {
-        points_count = 50;
+        percent = atoi(argv[1]);
     }
+
     initscr();
     curs_set(0);
     noecho();
@@ -23,6 +23,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     std::srand(std::time(nullptr));
 
     std::set<std::pair<int, int>> points;
+
+    points_count = round(((LINES - 3) * (COLS - 2) / 100)) * percent;
 
     int i = 0;
     while (i < points_count) {
@@ -56,9 +58,12 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
             }
         }
 
-        std::string score_str = std::string("Score: ") + std::to_string(score) +
-                                std::string(" Y: ") + std::to_string(y) +
-                                std::string(" X: ") + std::to_string(x);
+        std::string score_str =
+            std::string("Score: ") + std::to_string(score) +
+            std::string(" Y: ") + std::to_string(y) + std::string(" X: ") +
+            std::to_string(x) + std::string(" LINES: ") +
+            std::to_string(LINES) + " COLS: " + std::to_string(COLS) +
+            " TOTAL POINTS: " + std::to_string(points_count);
 
         mvaddstr(0, 0, score_str.c_str());
         mvprintw(y, x, "X");
