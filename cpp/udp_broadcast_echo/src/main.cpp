@@ -14,8 +14,10 @@ char buff[255];
 std::string str;
 
 int main(int argc, char** argv) {
-    int sock     = socket(AF_INET, SOCK_DGRAM, 0);
-    int sock_out = socket(AF_INET, SOCK_DGRAM, 0);
+    (void)argc;
+    (void)argv;
+
+    int sock = socket(AF_INET, SOCK_DGRAM, 0);
 
     struct sockaddr_in addr;
     addr.sin_family      = AF_INET;
@@ -24,7 +26,7 @@ int main(int argc, char** argv) {
 
     struct sockaddr_in in_addr;
 
-    int r = bind(sock, (struct sockaddr*)&addr, sizeof(addr));
+    bind(sock, (struct sockaddr*)&addr, sizeof(addr));
 
     socklen_t addr_len = sizeof(in_addr);
 
