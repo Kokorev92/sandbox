@@ -42,7 +42,9 @@ int main(int argc, char** argv) {
                 sendto(sock, resp, sizeof(resp), 0, (struct sockaddr*)&in_addr,
                        addr_len);
             }
+            std::cout << buff;
             std::cout << inet_ntoa(in_addr.sin_addr) << std::endl;
+            memset(buff, 0, sizeof(buff));
         } else {
             continue;
         }
