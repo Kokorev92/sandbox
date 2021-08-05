@@ -5,13 +5,8 @@
 #include <unistd.h>
 #include <cstring>
 #include <iostream>
-#include <string>
-
-const std::string request = std::string("where_you\n");
 
 char buff[255];
-
-std::string str;
 
 int main(int argc, char** argv) {
     (void)argc;
@@ -29,21 +24,18 @@ int main(int argc, char** argv) {
     bind(sock, (struct sockaddr*)&addr, sizeof(addr));
 
     socklen_t addr_len = sizeof(in_addr);
-
     while (true) {
-        int len =
-            recvfrom(sock, buff, 255, 0, (struct sockaddr*)&in_addr, &addr_len);
+        int len = recvfrom(sock, buff, sizeof(buff), 0,
+                           (struct sockaddr*)&in_addr, &addr_len);
         if (len > 0) {
-            str = std::string(buff);
-            if (str == request) {
-                std::string response = std::string("I am here\n");
-                in_addr.sin_port     = htons(5501);
-                sendto(sock, response.c_str(), response.length(), 0,
-                       (struct sockaddr*)&in_addr, addr_len);
+            char resp[2] = {buff[0], buff[1]};
+            if ((resp[0] == 82 && (resp[1] == 81))) {
+                resp[1] -= 1;
+                in_addr.sin_port = htons(5501);
+                sendto(sock, resp, sizeof(resp), 0, (struct sockaddr*)&in_addr,
+                       addr_len);
             }
-            std::cout << str << std::endl;
             std::cout << inet_ntoa(in_addr.sin_addr) << std::endl;
-            memset(buff, 0, 255);
         }
     }
 }
