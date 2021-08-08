@@ -15,7 +15,7 @@ int main() {
 
     addr.sin_family = AF_INET;
     addr.sin_port   = htons(5500);
-    auto ip         = gethostbyname("192.168.111.255");
+    auto ip         = gethostbyname("192.168.0.255");
 
     socklen_t addr_len  = sizeof(in_addr);
     int       broadcast = 1;
@@ -26,7 +26,7 @@ int main() {
     char buff[255];
     while (true) {
         memset(buff, 0, 255);
-        sendto(sock, "RQ\n", sizeof("RQ\n"), 0, (struct sockaddr*)&addr,
+        sendto(sock, "RQV\n", sizeof("RQV\n"), 0, (struct sockaddr*)&addr,
                sizeof(addr));
         int len =
             recvfrom(sock, buff, 255, 0, (struct sockaddr*)&in_addr, &addr_len);
