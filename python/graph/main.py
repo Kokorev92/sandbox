@@ -15,11 +15,11 @@ with open(FILE, "r") as file:
     data = csv.reader(file)
     for row in data:
         time.append(row[0])
-        humidity.append(row[2])
         temperature.append(row[1])
+        humidity.append(row[2])
         light.append(row[3])
 
-# Преобразуем все списки в Int
+# Преобразуем все списки в int
 humidity = list(map(int, humidity))
 temperature = list(map(int, temperature))
 light = list(map(int, light))
@@ -28,7 +28,10 @@ light = list(map(int, light))
 time = [dt.datetime.strptime(i, "%H:%M:%S") for i in time]
 
 fig, ax = plt.subplots()
-ax.plot(time, light)
-ax.plot(time, temperature)
-ax.plot(time, humidity)
+ax.set_title('Bathroom telemetry')
+ax.set_xlabel('Time(H:M:S)')
+ax.plot(time, light, label='Light')
+ax.plot(time, temperature, label='Temperature (C)')
+ax.plot(time, humidity, label='Humidity (%)')
+ax.legend()
 plt.show()
