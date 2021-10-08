@@ -1,5 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib.ticker as ticker
 import datetime as dt
 
 FILE = "log.csv"
@@ -28,10 +30,12 @@ light = list(map(int, light))
 time = [dt.datetime.strptime(i, "%H:%M:%S") for i in time]
 
 fig, ax = plt.subplots()
-ax.set_title('Bathroom telemetry')
-ax.set_xlabel('Time(H:M:S)')
+ax.set_title('Bathroom telemetry')  # Заголовок графика
+ax.set_xlabel('Time(H:M:S)')  # Подпись оси X
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))  # Формат подписи меток времени по оси X
+ax.legend()  # Отображение легенды
+
 ax.plot(time, light, label='Light')
 ax.plot(time, temperature, label='Temperature (C)')
 ax.plot(time, humidity, label='Humidity (%)')
-ax.legend()
 plt.show()
