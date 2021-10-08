@@ -9,6 +9,8 @@ humidity = []
 temperature = []
 light = []
 
+# Считываем все значения в соответствующие списки
+# Списки будут иметь тип string, после мы преобразуем их в int
 with open(FILE, "r") as file:
     data = csv.reader(file)
     for row in data:
@@ -17,10 +19,12 @@ with open(FILE, "r") as file:
         temperature.append(row[1])
         light.append(row[3])
 
+# Преобразуем все списки в Int
 humidity = list(map(int, humidity))
 temperature = list(map(int, temperature))
 light = list(map(int, light))
 
+# Преобразуем время к типу datetime
 time = [dt.datetime.strptime(i, "%H:%M:%S") for i in time]
 
 fig, ax = plt.subplots()
