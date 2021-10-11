@@ -49,4 +49,22 @@ ax.plot(time, light, label='Light (on/off)', color='red')
 ax.plot(time, temperature, label='Temperature (C)')
 ax.plot(time, humidity, label='Humidity (%)')
 ax.legend()  # Отображение легенды
+
+peaks = []
+i = 0
+while i < len(light) - 1:
+    if light[i] != light[i+1]:
+        peaks.append(i)
+    i += 1
+
+if light[0] == 1:
+    peaks.insert(0, 0)
+if light[len(light)-1] == 1:
+    peaks.append(len(light)-1)
+
+i = 0
+while i < len(peaks):
+    ax.axvspan(time[peaks[i]], time[peaks[i+1]], color='red', alpha=0.2)
+    i += 2
+
 plt.show()
