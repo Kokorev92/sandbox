@@ -45,7 +45,7 @@ ax.set_title('Bathroom telemetry')  # Заголовок графика
 ax.set_xlabel('Time(H:M:S)')  # Подпись оси X
 ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))  # Формат подписи меток времени по оси X
 
-ax.plot(time, light, label='Light (on/off)', color='red')
+ax.plot(time, light, label='Light (on/off)', color='green')
 ax.plot(time, temperature, label='Temperature (C)')
 ax.plot(time, humidity, label='Humidity (%)')
 ax.legend()  # Отображение легенды
