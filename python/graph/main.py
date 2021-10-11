@@ -13,6 +13,7 @@ light = []
 
 # Функция для преобразования значения освещения
 def light_status(current_light):
+    current_light = int(current_light)
     if current_light > 200:
         return 1
     else:
@@ -29,10 +30,9 @@ with open(FILE, "r") as file:
         humidity.append(row[2])
         light.append(row[3])
 
-# Преобразуем все списки в int
+# Преобразуем температуру и влажность в int
 humidity = list(map(int, humidity))
 temperature = list(map(int, temperature))
-light = list(map(int, light))
 
 # Преобразуем АЦП значения освещения к двум состояниям: 1 - вкл. 0 - выкл.
 light = list(map(light_status, light))
