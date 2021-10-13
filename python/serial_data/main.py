@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtWidgets
 import serial
+from PyQt5.QtGui import QColor, QPalette
 
 import main_window
 
@@ -25,18 +26,26 @@ class RelayGui(QtWidgets.QMainWindow, main_window.Ui_MainWindow):
 
     def relay1_button_click(self):
         self.relay1 = not self.relay1
+        palette = self.relay1_button.palette()
         if self.relay1:
             self.packet[1] |= (1 << 0)
+            palette.setColor(QPalette.Button, QColor(0, 255, 0))
         else:
             self.packet[1] &= ~(1 << 0)
+            palette.setColor(QPalette.Button, QColor(255, 0, 0))
+        self.relay1_button.setPalette(palette)
         self.send_packet()
 
     def relay2_button_click(self):
         self.relay2 = not self.relay2
+        palette = self.relay2_button.palette()
         if self.relay2:
             self.packet[1] |= (1 << 1)
+            palette.setColor(QPalette.Button, QColor(0, 255, 0))
         else:
             self.packet[1] &= ~(1 << 1)
+            palette.setColor(QPalette.Button, QColor(255, 0, 0))
+        self.relay2_button.setPalette(palette)
         self.send_packet()
 
     def __init__(self):
