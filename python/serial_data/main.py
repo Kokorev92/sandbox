@@ -13,11 +13,9 @@ class RelayGui(QtWidgets.QMainWindow, main_window.Ui_MainWindow):
     relay2 = False
 
     def calc_crc(self):
-        i = 0
         self.packet[3] = 0
-        while i < 3:
+        for i in range(3):
             self.packet[3] = (self.packet[3] + self.packet[i]) % 256
-            i += 1
 
     def send_packet(self):
         self.calc_crc()
