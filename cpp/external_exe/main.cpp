@@ -11,6 +11,6 @@ int main(){
     FILE* stream = popen("./external 1 1", "r");
     fread(buff, sizeof(buff), 1, stream);
     pclose(stream);
-    cout << buff << endl;
+    cout << buff;
     return 0;
 }
