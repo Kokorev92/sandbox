@@ -1,27 +1,27 @@
-#include <iostream>
 #include <functional>
+#include <iostream>
 #include <utility>
 
 using namespace std;
 
 class A {
 public:
-    A(){}
+    A() {}
 
     float get_temp() {
         return temp_;
     }
+
 private:
     float temp_ = 0.10;
 };
 
 class B {
 public:
-
     template <typename T>
-    B(const T& func) : func_(func){}
+    B(const T& func) : func_(func) {}
 
-    void print(){
+    void print() {
         cout << func_();
     }
 
@@ -30,10 +30,9 @@ private:
 };
 
 int main() {
-
     A a;
 
-    B b([&a] () -> float {return a.get_temp();});
+    B b([&a]() -> float { return a.get_temp(); });
 
     b.print();
 
