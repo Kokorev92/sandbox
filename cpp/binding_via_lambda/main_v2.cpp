@@ -8,7 +8,7 @@ class Worker {
 public:
     Worker() {}
 
-    float get_data() {
+    float get_data() const {
         return data_;
     }
 
