@@ -1,0 +1,45 @@
+<script src="jquery-3.5.1.min.js"></script>
+
+<body width=100%>
+    <h1>Тест базы данных</h1>
+    <div id="main">
+    </div>
+</body>
+
+<script>
+    $.ajax(
+        {
+            url: 'get_products',
+            type: 'POST',
+            dataType: 'json',
+            complete: (xhr, textStatus) => { },
+            success: (data, textStatus, xhr) => {
+                $("h1").text('Список товаров')
+                var table = "<table>"
+                table += "<tr><th>Наименование</th><th>Описание</th><th>Цена</th></tr>"
+                data.forEach(element => {
+                    table += `<tr><td> ${element.name}</td><td>${element.desc}</td><td>${element.cost}</td></tr>`
+                })
+                table += "</table>"
+                $("#main").append(table)
+            },
+            error: (jqXHR, textStatus, errorThrown) => {
+                $("h1").text("Нет соединеня с БД")
+            }
+
+        }
+    )
+</script>
+
+<style type="text/css">
+    table {
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 4px;
+    }
+</style>
