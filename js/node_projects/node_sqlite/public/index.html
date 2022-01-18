@@ -16,9 +16,9 @@
             success: (data, textStatus, xhr) => {
                 $("h1").text('Список товаров')
                 var table = "<table>"
-                table += "<tr><th>Наименование</th><th>Описание</th><th>Цена</th></tr>"
+                table += "<tr><th>Наименование</th><th>Описание</th><th>Цена</th><th>Изображение</th></tr>"
                 data.forEach(element => {
-                    table += `<tr><td> ${element.name}</td><td>${element.desc}</td><td>${element.cost}</td></tr>`
+                    table += `<tr><td> ${element.name}</td><td>${element.desc}</td><td>${element.cost}</td><td><img src=\'${element.img_src}\' width=80px alt=\'No image\'/></td></tr>`
                 })
                 table += "</table>"
                 $("#main").append(table)
