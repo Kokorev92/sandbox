@@ -18,6 +18,8 @@ void strcat(char* to, const char* from) {
     }
     to[len + strlen(from)] = '\0';
 }
+
+int strstr(const char* text, const char* pattern) {}
 }  // namespace my
 
 char str[15] = "fuck off!";
