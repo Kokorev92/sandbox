@@ -10,18 +10,25 @@ pair<float, float> scale_adc(0, 1024);
 
 Scale my_scale(scale_degrees, scale_adc);
 
-TEST(scale_class_test, rescale_adc_to_degrees){
-    int eq_degrees_val[5] = {0, 45, 90, 135, 180};
-    int test_adc_val[5] = {0, 256, 512, 768, 1024};
+int eq_degrees_val[5] = {0, 45, 90, 135, 180};
+int test_adc_val[5]   = {0, 256, 512, 768, 1024};
 
-    for(int i = 0; i < 5; ++i){
+TEST(scale_class_test, rescale_adc_to_degrees) {
+    for (int i = 0; i < 5; ++i) {
         auto val = my_scale.get_on_scale_a(test_adc_val[i]);
         ASSERT_EQ(val, eq_degrees_val[i]);
     }
 }
 
-int main(int argc, char** argv){
-  ::testing::InitGoogleTest(&argc, argv);
+TEST(scale_class_test, rescale_degrees_to_adc) {
+    for (int i = 0; i < 5; ++i) {
+        auto val = my_scale.get_on_scale_b(eq_degrees_val[i]);
+        ASSERT_EQ(val, test_adc_val[i]);
+    }
+}
 
-  return RUN_ALL_TESTS();
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
 }
