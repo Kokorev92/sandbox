@@ -10,11 +10,11 @@ class Scale {
         a_scale_ratio_((scale_a.second - scale_a.first) / (scale_b.second - scale_b.first)), 
         b_scale_ratio_((scale_b.second - scale_b.first) / (scale_a.second - scale_a.first)) {}
 
-    float get_on_scale_a(float x_b) {
+    int get_on_scale_a(int x_b) {
       return (x_b - scale_b_.first) * a_scale_ratio_ + scale_a_.first;
-    }   
+    }
 
-    float get_on_scale_b(float x_a) {
+    int get_on_scale_b(int x_a) {
       return (x_a - scale_a_.first) * b_scale_ratio_ + scale_b_.first;
     }   
 
