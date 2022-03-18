@@ -1,0 +1,27 @@
+#include <gtest/gtest.h>
+#include <utility>
+
+#include "scale.h"
+
+using namespace std;
+
+pair<float, float> scale_degrees(0, 180);
+pair<float, float> scale_adc(0, 1024);
+
+Scale my_scale(scale_degrees, scale_adc);
+
+TEST(scale_class_test, rescale_adc_to_degrees){
+    int eq_degrees_val[5] = {0, 45, 90, 135, 180};
+    int test_adc_val[5] = {0, 256, 512, 768, 1024};
+
+    for(int i = 0; i < 5; ++i){
+        auto val = my_scale.get_on_scale_a(test_adc_val[i]);
+        ASSERT_EQ(val, eq_degrees_val[i]);
+    }
+}
+
+int main(int argc, char** argv){
+  ::testing::InitGoogleTest(&argc, argv);
+
+  return RUN_ALL_TESTS();
+}
