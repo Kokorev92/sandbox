@@ -27,6 +27,11 @@ TEST(scale_class_test, rescale_degrees_to_adc) {
     }
 }
 
+TEST(scale_class_test, boundary_values) {
+    auto val = my_scale.get_on_scale_b(181);
+    ASSERT_EQ(val, scale_adc.second);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 
